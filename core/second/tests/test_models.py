@@ -52,11 +52,6 @@ class TestProductModelNima(TestCase):
         self.assertEqual(self.product.get_discount_price(0), 100)
 
 
-class TestNimaHintSimple(SimpleTestCase):
-    # simple test case for the tests that does not need any DB operations or any PKs
-    pass
-
-
 class TestNimaHintSetUpTestData(TestCase):
     # setUpTestData just runs onece before all methods and it's more fast(good for heavy db operations)
 
@@ -64,3 +59,21 @@ class TestNimaHintSetUpTestData(TestCase):
     def setUpTestData(cls):
         cls.product = Products.objects.create(name="pro1", price=100)
         # make sure you use cls.product in other methods in order to access the data
+
+class TestNimaHintSimple(SimpleTestCase):
+    # simple test case for the tests that does not need any DB operations or any PKs
+    # + how to write setup and tear down for simple test cases
+    
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.nima = "nima"
+
+    def test_simple_with_setup_class(self):
+        print()
+        print(f"print {self.__class__.nima}")
+
+    @classmethod
+    def tearDownClass(cls):
+        print("deleting nima")
+        super().tearDownClass()

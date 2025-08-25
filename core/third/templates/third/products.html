@@ -1,0 +1,10 @@
+hello, this is the products page of my website.
+<br>
+
+{% for product in products %}
+    <p>{{product.name}}</p>
+    
+    {% empty %}
+    <p> no product available </p>
+
+{% endfor %}
