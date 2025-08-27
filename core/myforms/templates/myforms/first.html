@@ -1,0 +1,17 @@
+<style>
+    body{
+        background-color: gray;
+    }
+</style>
+
+hi, this is first html from myforms app
+
+
+<br><br>
+
+<form action="{% url 'myforms:first' %}" method="Post">
+    {% csrf_token %}
+    {{ name_form }}
+    <br>
+    <input type="submit">
+</form>
