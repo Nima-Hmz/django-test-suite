@@ -1,0 +1,46 @@
+{# second_template.html #}
+{% load static %}
+
+{# include bootstrap (or your own CSS) so the classes have effect #}
+<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+<form method="post" novalidate>
+  {% csrf_token %}
+
+  {# Non-field errors (general form errors) #}
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+      {% for err in form.non_field_errors %}
+        <div class="mb-1">{{ err }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% for field in form %}
+    <div class="mb-3">
+      {{ field.label_tag }}
+
+      {# Render the widget with a class. Use as_widget(attrs=...) so we don't need to set attrs in the form class #}
+      {% if field.errors %}
+        {{ field.as_widget(attrs={'class': 'form-control is-invalid'}) }}
+        {# render each error with the invalid-feedback class (Bootstrap) #}
+        {% for error in field.errors %}
+          <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+      {% else %}
+        {{ field.as_widget(attrs={'class': 'form-control'}) }}
+      {% endif %}
+
+      {# optional: small helper text (uncomment if you use help_text) #}
+      {% if field.help_text %}
+        <div class="form-text">{{ field.help_text }}</div>
+      {% endif %}
+    </div>
+
+    <br><br><br>
+  {% endfor %}
+
+  <button class="btn btn-primary" type="submit">ارسال</button>
+</form>
+
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>

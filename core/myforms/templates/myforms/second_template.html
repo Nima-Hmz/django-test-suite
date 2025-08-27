@@ -1,0 +1,9 @@
+hi, this is second template for second test of the django forms
+
+<br><br>
+
+<form action="{% url 'myforms:second' %}" method="POST">
+    {% csrf_token %}
+    {{ ticket_form }}
+    <input type="submit" value="ارسال">
+</form>
