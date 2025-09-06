@@ -1,0 +1,10 @@
+<p>hi this is product form template</p>
+
+<br><br>
+
+<form action="{% url 'third:form_product_url' %}" method="Post">
+    {% csrf_token %}
+    {{ product_form }}
+    <br>
+    <input type="submit" value="ثبت">
+</form>
