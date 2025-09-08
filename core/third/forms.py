@@ -16,6 +16,14 @@ class ProductForm(forms.Form):
         
         return price 
     
+    def clean_stock_count(self):
+        stock_count = self.cleaned_data.get('stock_count')
+
+        if stock_count < 0:
+            raise forms.ValidationError("تعداد نمیتواند کمتر از صفر باشد")
+        
+        return stock_count
+    
     def clean(self):
         cleaned_data = super().clean()
         price = price = self.cleaned_data.get('price')
