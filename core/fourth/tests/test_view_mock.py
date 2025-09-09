@@ -1,29 +1,7 @@
 from django.test import TestCase
-from django.contrib.auth import get_user_model
+from unittest.mock import patch
 from django.urls import reverse
-from unittest.mock import Mock, patch
 import requests
-
-# Create your tests here.
-
-class TestAuthentication(TestCase):
-    def test_dashboard_is_not_accessible_for_anonymous_users(self):
-        response = self.client.get(reverse('fourth:dashboard'))
-        self.assertRedirects(response, expected_url=reverse('fourth:login'))
-
-    def test_dashboard_is_accessible_for_authenticated_users(self):
-
-        # create the user
-        User = get_user_model()
-        User.objects.create_user(username='test1235', password='nima7176')
-
-        # log the user in 
-        self.client.login(username='test1235', password='nima7176')
-
-        # check if the username is in the template
-        response = self.client.get(reverse('fourth:dashboard'))
-        self.assertContains(response, 'test1235')
-
 
 # net ninja mocking way
 class TestPostView(TestCase):
@@ -66,11 +44,36 @@ class TestPostView(TestCase):
 
 
 
+    # the test of the hard coded view 
+    @patch('fourth.views.requests.get')
+    def test_request_view_success_post2(self, mock_get):
+        # making the mock ready 
+        mock_get.return_value.status_code = 200
+        return_data = {'id':1}
+        mock_get.return_value.json.return_value = return_data
 
+        # sending the request
+        response = self.client.get(reverse('fourth:post2'))
 
+        # start testing 
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, return_data)
 
+        # validation of the mock 
+        mock_get.assert_called_once_with('https://jsonplaceholder.typicode.com/posts/1')
 
+    # the test of the hard coded view 
+    @patch('fourth.views.requests.get')
+    def test_request_view_fail_post2(self, mock_get):
+        # making the mock ready 
+        mock_get.return_value.status_code = 404
+        mock_get.return_value.json.return_value = {}
 
+        # sending the request
+        response = self.client.get(reverse('fourth:post2'))
 
-    
+        # start testing 
+        self.assertEqual(response.status_code, 503)
 
+        # start validation 
+        mock_get.assert_called_once_with('https://jsonplaceholder.typicode.com/posts/1')   

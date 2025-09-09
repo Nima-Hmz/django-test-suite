@@ -34,4 +34,19 @@ class PostView(View):
 
             # return a 503 service unavailable response
             return HttpResponse('service unavailable', status=503) 
+        
+
+# the hard coded way
+class PostView2(View):
+    def get(self, request):
+        try:
+            response = requests.get('https://jsonplaceholder.typicode.com/posts/1')
+            if response.status_code == 200:
+                return JsonResponse(response.json())
+            
+            return HttpResponse("fail", status=503)
+        
+        except Exception:
+            return HttpResponse('fail2', status=503)
+
 
