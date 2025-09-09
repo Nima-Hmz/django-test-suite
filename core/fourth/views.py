@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+import requests
+from requests.exceptions import RequestException
 
 # Create your views here.
 
@@ -19,5 +21,17 @@ class DashboardView(View):
     def get(self, request):
         user = request.user
         return HttpResponse(f"here is the dashboard page {user.username}")
+    
 
+class PostView(View):
+    def get(self, request):
+        try:
+            response = requests.get('https://jsonplaceholder.typicode.com/posts/1')
+            response.raise_for_status()
+            return JsonResponse(response.json())
+        except RequestException as e:
+            # log the exception
+
+            # return a 503 service unavailable response
+            return HttpResponse('service unavailable', status=503) 
 
