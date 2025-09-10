@@ -67,7 +67,7 @@ class PostView3(View):
         
         try:
             response2 = requests.get('https://jsonplaceholder.typicode.com/posts/2')
-            response.raise_for_status()
+            response2.raise_for_status()
             result.append(response2.json())
         except RequestException as e:
             # log the exception
@@ -77,7 +77,7 @@ class PostView3(View):
         
         try:
             response3 = requests.get('https://jsonplaceholder.typicode.com/posts/3')
-            response.raise_for_status()
+            response3.raise_for_status()
             result.append(response3.json())
         except RequestException as e:
             # log the exception

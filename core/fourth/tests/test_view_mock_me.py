@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from unittest.mock import patch, MagicMock, call
 from django.urls import reverse
-from .side_effect_functions import post_view_3_url_fake_data
+from .side_effect_functions import post_view_3_url_fake_data, post_view_3_url_fake_data_fail
 import requests
 
 class TestPostViewNima(SimpleTestCase):
@@ -41,7 +41,7 @@ class TestPostViewNima(SimpleTestCase):
 class TestPostView3Nima(SimpleTestCase):
     def test_post_view3_success_nima(self):
         # creating the mocks and assign them
-        with patch('fourth.views.requests.get', side_effect=post_view_3_url_fake_data) as mock_get:
+        with patch('fourth.views.requests.get', side_effect=post_view_3_url_fake_data, autospec=True) as mock_get:
             
             # sending the request
             response = self.client.get(reverse('fourth:post3'))
@@ -53,6 +53,24 @@ class TestPostView3Nima(SimpleTestCase):
             mock_get.assert_has_calls([call('https://jsonplaceholder.typicode.com/posts/1'),
                                         call('https://jsonplaceholder.typicode.com/posts/2'),
                                           call('https://jsonplaceholder.typicode.com/posts/3')])
+            
+        
+    def test_post_view3_fail_nima(self):
+        # creating the mocks and assign them
+        with patch('fourth.views.requests.get', side_effect=post_view_3_url_fake_data_fail, autospec=True) \
+            as mock_get:
+
+            # sending the request
+            responsee = self.client.get(reverse('fourth:post3'))
+
+            # start testing
+            self.assertEqual(responsee.status_code, 503)
+
+            # ensuring the correct mocking assign
+            mock_get.assert_has_calls([call('https://jsonplaceholder.typicode.com/posts/1'),
+                                        call('https://jsonplaceholder.typicode.com/posts/2')])
+            
+            
 
 
             
