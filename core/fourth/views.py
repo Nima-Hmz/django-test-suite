@@ -48,5 +48,41 @@ class PostView2(View):
         
         except Exception:
             return HttpResponse('fail2', status=503)
+        
 
 
+# multiple Apis(for more professional mocking practice)
+class PostView3(View):
+    def get(self, request):
+        result = []
+        try:
+            response = requests.get('https://jsonplaceholder.typicode.com/posts/1')
+            response.raise_for_status()
+            result.append(response.json())
+        except RequestException as e:
+            # log the exception
+
+            # return a 503 service unavailable response
+            return HttpResponse('service unavailable(the first)', status=503) 
+        
+        try:
+            response2 = requests.get('https://jsonplaceholder.typicode.com/posts/2')
+            response.raise_for_status()
+            result.append(response2.json())
+        except RequestException as e:
+            # log the exception
+
+            # return a 503 service unavailable response
+            return HttpResponse('service unavailable(the second)', status=503) 
+        
+        try:
+            response3 = requests.get('https://jsonplaceholder.typicode.com/posts/3')
+            response.raise_for_status()
+            result.append(response3.json())
+        except RequestException as e:
+            # log the exception
+
+            # return a 503 service unavailable response
+            return HttpResponse('service unavailable(the third)', status=503) 
+
+        return JsonResponse(result, safe=False)
