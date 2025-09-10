@@ -71,6 +71,10 @@ class TestPostView3Nima(SimpleTestCase):
                                         call('https://jsonplaceholder.typicode.com/posts/2')])
             
             
-
-
             
+# in case you want to mock multiple & different things you can do this:
+
+# def test_post_view3_with_multiple_mocks(self):
+    # with patch('fourth.views.requests.get', side_effect=post_view_3_url_fake_data) as mock_get, \
+    #      patch('fourth.views.some_other_function', return_value="mocked") as mock_other, \
+    #      patch('fourth.views.SomeClass') as mock_class: 
