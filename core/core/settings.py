@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'third.apps.ThirdConfig',
     'myforms.apps.MyformsConfig',
     'fourth.apps.FourthConfig',
+    'fifth.apps.FifthConfig',
 ]
 
 MIDDLEWARE = [
