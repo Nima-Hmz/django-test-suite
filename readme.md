@@ -22,13 +22,9 @@ pip install -r requirements.txt
 python manage.py test
 ```
 
-(Optional) run with `pytest` after installing `pytest` and `pytest-django`.
-
 ---
 
-## Testing workflow (TDD)
-
-Follow **Red → Green → Refactor**: write a failing test, implement the minimum to pass, then refactor.
+## Description
 
 Practical tips included in the repo: use `SimpleTestCase` for non-DB tests, prefer `setUpTestData` for expensive fixtures, and mock external calls to keep tests fast and deterministic.
 
@@ -36,13 +32,18 @@ Practical tips included in the repo: use `SimpleTestCase` for non-DB tests, pref
 
 ## Coverage & CI
 
-Use `coverage` locally (`coverage run --source='.' manage.py test`) and add a CI workflow (GitHub Actions) to run tests and upload coverage reports.
+Use `coverage` locally (`coverage run manage.py test`) and add a CI workflow (GitHub Actions) to run tests and upload coverage reports.
 
 ---
 
 ## License
 
 GPL — feel free to reuse and adapt.
+
+---
+
+## Contact
+Created by [Nima-Hmz] - [hmznima77@gmail.com]
 
 ---
 
