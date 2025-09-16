@@ -1,4 +1,4 @@
-from django.test import SimpleTestCase, override_settings
+from django.test import SimpleTestCase, override_settings, tag
 from django.urls import reverse
 
 
@@ -12,6 +12,7 @@ class TestMaintainanceSettings(SimpleTestCase):
         self.assertEqual(response.status_code, 503)
 
 
+    @tag('off')
     @override_settings(MAINTAINANCE_MODE=False)
     def test_maintainance_off(self):
         response = self.client.get(reverse('third:index'))
