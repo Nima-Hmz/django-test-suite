@@ -39,15 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'second.apps.SecondConfig',
-    'third.apps.ThirdConfig',
+    'basics.apps.BasicsConfig',
+    'model_test.apps.ModelTestConfig',
+    'view_form_test.apps.ViewFormTestConfig',
     'myforms.apps.MyformsConfig',
-    'fourth.apps.FourthConfig',
-    'fifth.apps.FifthConfig',
+    'mocking_authentication_test.apps.MockingAuthenticationTestConfig',
+    'signal_settings_etc_test.apps.SignalSettingsEtcTestConfig',
 ]
 
 MIDDLEWARE = [
-    'fifth.middlewares.NimaMiddleware',
+    'signal_settings_etc_test.middlewares.NimaMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',   # MUST be after sessions
